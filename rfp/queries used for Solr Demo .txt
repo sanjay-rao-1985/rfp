@@ -1,0 +1,39 @@
+As a general rule, query text is case insensitive, meaning that you may use any combination of upper and lower case letters regardless of the case used in documents in the search collection. 
+
+Terms preceded by the '+' operator are required, meaning that only documents containing those terms will be selected by the query.
+Terms preceded by the '-' operator are prohibited, 
+
+e.g president george +washington -bridge
+Which selects documents which contain "Washington" but not "bridge". Selected documents do not have to contain "president" or "george", but they will be ranked higher if they do.
+
+Boolean Operators
+	 The basic Boolean operators are AND or &&, OR or ||, and unary and binary NOT or !.Evaluation is left to right, but parenthesis can be used to control the evaluation order. For example,\
+	 
+	 User Input                  								Interpreted as
+	 George Washington              							George AND Washington
+	 Boston OR Chicago                                          
+	 (George AND Washington) OR (Abraham AND Lincoln)           George Washington OR Abraham Lincoln 
+	 "George Washington" OR ("Abraham" AND "Lincoln")           "George Washington" OR "Abraham Lincoln" 
+	 cat dog turtle -zebra                                       
+	 What is aspirin?                                           Trailing ? is ignored
+Selects all documents that do not contain "zebra". Documents which contain any subset of "cat", "dog", and "turtle" will be ranked higher.
+
+
+
+e.g 
+      AmerisourceBergen
+	  AmerisourceBergen Model N
+      AmerisourceBergen -(Model N)
+    
+	 Model N
+	 (Model N) - hyderabad  => This query is getting inter
+	 Model N-(hyderabad)
+	 Model N -hyderabad  => could not find Hyderabad
+	 
+	 M?del N  => ? is a wild card char 
+	 Describe * => selects any thing after Describer
+	 
+	 
+	 
+	 
+	 Reference:- http://docs.lucidworks.com/display/lweug/Case+Insensitivity

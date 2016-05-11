@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery.paginate.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/index.css">
+	
+  <script>
+	$(document).ready(function(){
+		var start=0,end=10,ctr=0;var obj='';
+			var numFound=0;var ctr=0;
+			var customer='';
+			var version='';
+			var lineNumber='';
+			var rfpDate='';
+			var arr='';
+			var id='';
+			var customerInfo='';
+			var bodyContent='';    
+			//hide the prev,next buttons when the home page is launched
+			//alert (start + " "+end);
+			
+					$("#prev").hide();
+					$("#next").hide();
+					$("#firstPage").hide();
+					$("#lastPage").hide();
+			
+			
+				
+			$("#firstPage").click(function(){
+				start=0;end=10;
+				$('.tblBody').empty();
+				ctr=0;
+					for(var i=start;i<end;i++){
+						//alert(obj.response.docs[i].question);
+						ctr=i+1;
+						id=obj.response.docs[i].id;
+						arr=id.split("_"); // spliting the id 
+						customer=arr[0];version=arr[1];rfpDate=arr[2];lineNumber=arr[3];
+						
+						customerInfo='<b>Customer</b>:'+customer+
+							 '<br/><b>Version</b>: '+version+
+							 '<br/><b>RFP Date</b>: '+rfpDate+
+							 '<br/><b>LineNumber</b>: '+lineNumber+
+							 '</td>';
+						bodyContent='<tr><td>'+ctr+'</td><td>'+
+									obj.response.docs[i].module+
+									//'</td><td>'+obj.response.docs[i].meets+
+									'</td><td>'+obj.response.docs[i].question+
+									'</td><td>'+obj.response.docs[i].response+
+									'</td><td>'+
+									'<a href='+obj.response.docs[i].fileUrl+' target="_blank">'+customerInfo+
+									'</a></tr>';
+						$(bodyContent).appendTo('.tblBody');
+					
+						
+					}
+				if(start == 0 && end==10){
+					$("#prev").hide();
+					$("#firstPage").hide();
+					$("#next").show();
+					$("#lastPage").show();
+				}
+			});
+			$("#lastPage").click(function(){
+				
+				end=numFound;
+				start=end-10;
+				$('.tblBody').empty();
+				ctr=start;
+					for(var i=start;i<end;i++){
+						//alert(obj.response.docs[i].question);
+						id=obj.response.docs[i].id;
+						arr=id.split("_");
+						customer=arr[0];version=arr[1];rfpDate=arr[2];lineNumber=arr[3];
+						ctr=i+1;
+						customerInfo='<b>Customer</b>:'+customer+
+							 '<br/><b>Version</b>: '+version+
+							 '<br/><b>RFP Date</b>: '+rfpDate+
+							 '<br/><b>LineNumber</b>: '+lineNumber+
+							 '</td>';
+						bodyContent='<tr><td>'+ctr+'</td><td>'+
+									obj.response.docs[i].module+
+									//'</td><td>'+obj.response.docs[i].meets+
+									'</td><td>'+obj.response.docs[i].question+
+									'</td><td>'+obj.response.docs[i].response+
+									'</td><td>'+
+									'<a href='+obj.response.docs[i].fileUrl+' target="_blank">'+customerInfo+
+									'</a></tr>';
+						$(bodyContent).appendTo('.tblBody');
+						
+					}
+				
+					$("#prev").show();
+					$("#firstPage").show();
+					$("#next").hide();
+					$("#lastPage").hide();
+				
+			});
+			
+			$("#prev").click(function(){
+				//alert (start + " "+end);
+				start=start-10;end=end-10;				
+				$('.tblBody').empty();
+				ctr=0;
+					for(var i=start;i<end;i++){
+						//alert(obj.response.docs[i].question);
+						id=obj.response.docs[i].id;
+						arr=id.split("_");
+						customer=arr[0];version=arr[1];rfpDate=arr[2];lineNumber=arr[3];
+						ctr=i+1;
+						customerInfo='<b>Customer</b>:'+customer+
+							 '<br/><b>Version</b>: '+version+
+							 '<br/><b>RFP Date</b>: '+rfpDate+
+							 '<br/><b>LineNumber</b>: '+lineNumber+
+							 '</td>';
+						bodyContent='<tr><td>'+ctr+'</td><td>'+
+									obj.response.docs[i].module+
+									//'</td><td>'+obj.response.docs[i].meets+
+									'</td><td>'+obj.response.docs[i].question+
+									'</td><td>'+obj.response.docs[i].response+
+									'</td><td>'+
+									'<a href='+obj.response.docs[i].fileUrl+' target="_blank">'+customerInfo+
+									'</a></tr>';
+						$(bodyContent).appendTo('.tblBody');
+
+					}
+				if(start == 0 && end==10){
+					$("#prev").hide();
+					$("#firstPage").hide();
+					$("#next").show();
+					
+				}
+				else{
+					$("#next").show();
+					$("#lastPage").show();
+				}
+			});
+			$("#next").click(function(){
+			//alert (start + " "+end);
+				start=start+10;end=end+10;
+				ctr=0;
+				//alert(start+" "+end);
+				$('.tblBody').empty();
+				for(var i=start;i<end;i++){
+					ctr=i+1;
+					id=obj.response.docs[i].id;
+					arr=id.split("_");
+					customer=arr[0];version=arr[1];rfpDate=arr[2];lineNumber=arr[3];
+					customerInfo='<b>Customer</b>:'+customer+
+							 '<br/><b>Version</b>: '+version+
+							 '<br/><b>RFP Date</b>: '+rfpDate+
+							 '<br/><b>LineNumber</b>: '+lineNumber+
+							 '</td>';
+					bodyContent='<tr><td>'+ctr+'</td><td>'+
+									obj.response.docs[i].module+
+									//'</td><td>'+obj.response.docs[i].meets+
+									'</td><td>'+obj.response.docs[i].question+
+									'</td><td>'+obj.response.docs[i].response+
+									'</td><td>'+
+									'<a href='+obj.response.docs[i].fileUrl+' target="_blank">'+customerInfo+
+									'</a></tr>';
+					$(bodyContent).appendTo('.tblBody');		
+				}
+				if((numFound-start)<= 10 ){
+					$("#next").hide();
+					$("#lastPage").hide();
+					$("#prev").hide();
+					$("#firstPage").hide();
+				}
+				$("#prev").show();
+				$("#firstPage").show();
+				
+			});
+			
+		$("#tBox").keyup(function(event){
+			if(event.keyCode == 13){
+				$("#btn").click();
+			}
+		});
+		$("#btn").click(function(){
+			var str=$("#tBox").val();
+			//alert (str); 
+			//code to do the ajax 
+			$.ajax({
+				type : "GET",
+				url : "json_result.php",
+				data : {'searchString' :str },
+				success: function(msg){
+					// Think abt the edge condn when the response is null !
+					 //alert(msg);
+					 
+					 obj=JSON.parse(msg);
+					 //alert(obj);
+					 //number of docs returned by solr json response
+					 numFound=obj.response.numFound;
+					 // to clear the table body before a new search !
+					 $('.tblBody').empty();
+					 $("#resultsFound").html("<p>Results Found : "+"<b>"+numFound+"</b></p>");
+					 
+					 if(numFound != 0){
+						 start=0;end=10;
+						 $('.tblBody').empty();
+						 ctr=0;
+						 if(numFound <=10){
+							//we dont need pagination
+							$("#next").hide();
+							$("#lastPage").hide();
+							for(var i=start;i<end;i++){
+							     ctr=i+1;
+								 id=obj.response.docs[i].id;
+								arr=id.split("_");
+								customer=arr[0];version=arr[1];rfpDate=arr[2];lineNumber=arr[3];
+								
+								customerInfo='<b>Customer</b>:'+customer+
+									 '<br/><b>Version</b>: '+version+
+									 '<br/><b>RFP Date</b>: '+rfpDate+
+									 '<br/><b>LineNumber</b>: '+lineNumber+
+									 '</td>';
+									 
+								bodyContent='<tr><td>'+ctr+'</td><td>'+
+									obj.response.docs[i].module+
+									//'</td><td>'+obj.response.docs[i].meets+
+									'</td><td>'+obj.response.docs[i].question+
+									'</td><td>'+obj.response.docs[i].response+
+									'</td><td>'+
+									'<a href='+obj.response.docs[i].fileUrl+' target="_blank">'+customerInfo+
+									'</a></tr>';
+								$(bodyContent).appendTo('.tblBody');
+							}
+							
+						 }
+						 else{
+							ctr=0;
+							for(var i=start;i<end;i++){
+							     ctr=i+1;
+								 //alert(obj.response.docs[i].question);
+									id=obj.response.docs[i].id;
+									arr=id.split("_");
+									customer=arr[0];version=arr[1];rfpDate=arr[2];lineNumber=arr[3];
+									customerInfo='<b>Customer</b>:'+customer+
+												'<br/><b>Version</b>: '+version+
+												'<br/><b>RFP Date</b>: '+rfpDate+
+												'<br/><b>LineNumber</b>: '+lineNumber+
+												'</td>';
+									bodyContent='<tr><td>'+ctr+'</td><td>'+
+												obj.response.docs[i].module+
+												//'</td><td>'+obj.response.docs[i].meets+
+												'</td><td>'+obj.response.docs[i].question+
+												'</td><td>'+obj.response.docs[i].response+
+												'</td><td>'+
+												'<a href='+obj.response.docs[i].fileUrl+' target="_blank">'+customerInfo+
+												'</a></tr>';
+									$(bodyContent).appendTo('.tblBody');			 
+							}
+							
+							$("#next").show();
+							$("#lastPage").show();
+							if(start != 0 && end != 10){
+								$("#firstPage").show();
+							}
+						 }
+					}
+					else{
+						alert('Found No Results !');
+					}
+				},
+				error : function(error){
+					var err=JSON.parse(error);
+					console.log(err);
+				  }
+			});
+		});
+	});
+	
+  </script>
+</head>
+<body>
+   <!-- class names are weird because they belong to the Twitter Bootstrap CSS framework-->
+		<div class="container-fluid">
+		  
+			  <div class="row-fluid">
+					<div class="span1 sidebar">
+					  <!--Sidebar content-->
+					</div>
+					<div class="span9 main">
+						<h2>Model N RFP Search Page</h2>
+						  <!--Body content-->
+								
+								<input type="text" id="tBox" class="input-xxlarge search-query" placeholder="Enter Search" >
+								<input type="submit" id="btn" class="btn btn-primary" value="Search">
+								<a href="#myModal" role="button" class="btn btn-primary" data-toggle="modal">Tips to Search</a>
+									<!-- Modal -->
+									<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+									  <div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+										<h4 id="myModalLabel">Tips to help you use Apache Solr&#0153; Search</h4>
+									  </div>
+									  <div class="modal-body">
+										<p>
+											<ol>
+											
+											<li>As a general rule, query text is case insensitive, meaning that you may use any combination of upper and lower case letters regardless of the case used in documents in the search collection.</li>
+											<br />
+											<li>Boolean Operators</li>
+											<ul><li>AND,&&,+,space between two terms => e.g when you search <b>chicago AND hyderabad</b> which is same as <b>chicago hyderabad</b>  also <b>chicago+hyderabad</b>  it searches for records with the two words. </li></ul>
+											<ul><li>OR,|| => e.g when you search <b>chicago OR hyderabad</b> which is same as <b>chicago||hyderabad</b>  it searched for records with either of the two words. </li></ul>
+											<ul><li>!, - => e.g when you search <b>Model N -hyderabad</b>   => it could not find Hyderabad </li></ul>
+											<br />
+											<li>Wild Card Chars</li>
+											<ul>
+												<li> ? => e.g when you search <b>M?del N</b>   it searched for words with any letter that replaced the ? </li>
+												<li> * => e.g when you search <b>Describe *</b>  => selects any thing after Describe.</li>
+											</ul>
+										   </ol>
+										</p>
+									  </div>
+									  <div class="modal-footer">
+										<button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
+									  </div>
+									</div>
+								<div id="resultsFound"> </div> <!--Shows the results found -->
+								
+								<table class="table table-striped">
+									<thead>
+										<tr> 
+											<th>Sr.No</th>
+											<th>Module</th>
+										<!--	<th>Meets</th> -->
+											<th>Question</th>
+											<th>Response</th>
+											<th>Company / Version Info</th>
+										</tr>
+									</thead>
+									<tbody class="tblBody">
+										
+									</tbody>
+								</table>
+								<ul class="pager" id="pager">
+									  <li class="previous">
+										<a href="#" id="firstPage">&larr; First Page</a>
+									  </li>
+									  <li class="previous">
+										<a href="#" id="prev">&larr; Previous</a>
+									  </li>
+									  <li class="next">
+										<a href="#" id="next">Next &rarr;</a>
+									  </li>
+									  <li class="next">
+										<a href="#" id="lastPage">Last Page &rarr;</a>
+									  </li>
+								</ul>
+					</div>
+					<div class="span2 sidebar">
+						
+						
+					</div>
+				</div>
+		</div>
+</body>
+</html>
